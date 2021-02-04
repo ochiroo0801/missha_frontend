@@ -50,25 +50,24 @@ function Account() {
     );
   }
 
+  console.log(orders);
+
   return (
     <div>
       <Head>
         <title>Account page</title>
         <meta name="description" content="The account page, view your order" />
       </Head>
-
       <h2>Account page</h2>
 
       <h3>Your Orders</h3>
       {loading && <h3>Loading...</h3>}
-      {!orders &&
-        orders.map((e) => (
-          <div key={e.id}>
-            {new Date(e.created_at).toLocaleDateString("eu-Eu")}
-            {e.product.name} {e.product.price} Kč {e.status}
-          </div>
-        ))}
-
+      {orders.map((e) => (
+        <div key={e.id}>
+          {new Date(e.created_at).toLocaleDateString("eu-Eu")}
+          {e.product.name} {e.product.price} Kč {e.status}
+        </div>
+      ))}
       <hr />
       <p>Logged in as: {user.email}</p>
       <a href="#" onClick={googlelogoutUser}>

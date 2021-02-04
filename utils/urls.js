@@ -1,5 +1,5 @@
 export const API_URL =
-  process.env.NEXT_PUBLIC_API_URL || "http://localhost:1337";
+  process.env.NEXT_PUBLIC_API_URL || "https://missha-dev.herokuapp.com";
 
 export const MAGIC_PUBIC_KEY =
   process.env.NEXT_PUBLIC_MAGIC_PUBIC_KEY || "pk_test_8D425C948BEB00D9";
