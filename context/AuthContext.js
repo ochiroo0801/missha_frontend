@@ -1,7 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { Magic } from "magic-sdk";
-import { OAuthExtension } from '@magic-ext/oauth';
+// import { OAuthExtension } from '@magic-ext/oauth';
 import { MAGIC_PUBIC_KEY } from "../utils/urls";
 
 let magic;
@@ -38,26 +38,23 @@ export function AuthProvider(props) {
     } catch (err) {}
   };
 
-   // Login User FaceBook
-   const loginFacebook = async () => {
+  // Login User FaceBook
+  const loginFacebook = async () => {
     try {
       magic = new Magic(MAGIC_PUBIC_KEY, {
         extensions: [new OAuthExtension()],
       });
       await magic.oauth.loginWithRedirect({
-        provider: 'facebook' /* 'google', 'facebook', 'apple', or 'github' */,
-        redirectURI: 'https://auth.magic.link/v1/oauth2/RhJpU8aipj7H0-kH5W6Z48hRsWdGdIKGZxyF5pNVAG4=/callback',
-        scopes: ['user:email'], /* optional */
-
+        provider: "facebook" /* 'google', 'facebook', 'apple', or 'github' */,
+        redirectURI:
+          "https://auth.magic.link/v1/oauth2/RhJpU8aipj7H0-kH5W6Z48hRsWdGdIKGZxyF5pNVAG4=/callback",
+        scopes: ["user:email"] /* optional */,
       });
       const result = await magic.oauth.getRedirectResult();
 
-console.log(result)
-
-    } catch(err) {}
-  }
-
- 
+      console.log(result);
+    } catch (err) {}
+  };
 
   const checkUserLoggedIn = async () => {
     try {
@@ -84,7 +81,6 @@ console.log(result)
 
   useEffect(() => {
     magic = new Magic(MAGIC_PUBIC_KEY);
-   
 
     checkUserLoggedIn();
   }, []);
@@ -97,7 +93,7 @@ console.log(result)
         loginUser,
         logoutUser,
         getToken,
-        loginFacebook
+        loginFacebook,
       }}
     >
       {props.children}

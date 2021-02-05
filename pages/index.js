@@ -7,6 +7,8 @@ import Product from "../components/Product/Product";
 export default function Home({ products, data }) {
   const { Title, items, description } = data;
 
+  console.log(data);
+
   return (
     <div>
       <Head>
@@ -31,6 +33,7 @@ export async function getStaticProps() {
   // HomePage components
   const res = await fetch(`${API_URL}/homepage`);
   const data = await res.json();
+
   // Fetch the products
   const product_res = await fetch(`${API_URL}/products/`);
   const products = await product_res.json();
