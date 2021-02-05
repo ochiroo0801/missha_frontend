@@ -4,7 +4,7 @@ import AuthContext from "../context/AuthContext";
 import Div from "./Styles/login_style";
 
 function login() {
-  const { loginUser, googleUser,loginFacebook } = useContext(AuthContext);
+  const { loginUser, loginFacebook } = useContext(AuthContext);
   const [email, setEmail] = useState("");
 
   const handleSubmit = (event) => {
@@ -13,8 +13,7 @@ function login() {
   };
 
   const handleLoginFacebook = () => {
-    
-    loginFacebook()
+    loginFacebook();
   };
 
   return (

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useContext, useState, useEffect } from "react";
 import AuthContext from "../context/AuthContext";
 import { API_URL } from "../utils/urls";
-import  Wrapper  from "../styles/Wrapper";
+import Wrapper from "../styles/Wrapper";
 
 const useOrders = (user, getToken) => {
   const [orders, setOrders] = useState([]);
@@ -36,7 +36,7 @@ const useOrders = (user, getToken) => {
 };
 
 function Account() {
-  const {logoutUser, user, getToken } = useContext(AuthContext);
+  const { logoutUser, user, getToken } = useContext(AuthContext);
 
   const { orders, loading } = useOrders(user, getToken);
 
@@ -51,7 +51,7 @@ function Account() {
     );
   }
 
-  console.log(orders)
+  console.log(orders);
 
   return (
     <Wrapper>
@@ -60,22 +60,20 @@ function Account() {
         <meta name="description" content="The account page, view your order" />
       </Head>
       <h2>Account page</h2>
-    
 
       <h3>Your Orders</h3>
       {loading && <h3>Loading...</h3>}
-      {orders ? orders.map((e) => (
+      {/* {orders ? orders.map((e) => (
         <div key={e.id}>
           {new Date(e.created_at).toLocaleDateString("eu-Eu")}
           {e.product.name} {e.product.price} Kč {e.status}
         </div>
-      )) : null}
+      )) : null} */}
       <hr />
       <p>Logged in as: {user.email}</p>
       <a href="#" onClick={logoutUser}>
         Logout
       </a>
-      
     </Wrapper>
   );
 }
