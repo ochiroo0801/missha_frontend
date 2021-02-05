@@ -2,10 +2,9 @@ import { useState, useContext } from "react";
 import Head from "next/head";
 import AuthContext from "../context/AuthContext";
 import Div from "./Styles/login_style";
-import { auth, provider } from "../firebase";
 
 function login() {
-  const { loginUser, googleUser } = useContext(AuthContext);
+  const { loginUser, googleUser,loginFacebook } = useContext(AuthContext);
   const [email, setEmail] = useState("");
 
   const handleSubmit = (event) => {
@@ -13,14 +12,9 @@ function login() {
     loginUser(email);
   };
 
-  const signIn = () => {
-    auth
-      .signInWithPopup(provider)
-      .then((result) => {
-        googleUser(result);
-        console.log(result.user.refreshToken);
-      })
-      .catch((error) => alert(error.message));
+  const handleLoginFacebook = () => {
+    
+    loginFacebook()
   };
 
   return (
@@ -44,7 +38,7 @@ function login() {
         </button>
       </form>
 
-      <button onClick={signIn}>Google</button>
+      <button onClick={handleLoginFacebook}>Google</button>
     </Div>
   );
 }
