@@ -25,6 +25,10 @@ const Product = ({ product }) => {
             <h4 className="size">{product.size} ml</h4>
             <BuyButton product={product} />
             <p className="details">{product.content}</p>
+            <div className="share">
+              <h4>Сошилоор хуваалцах</h4>
+              <div className="item">F</div>
+            </div>
           </div>
         </div>
       </Div>

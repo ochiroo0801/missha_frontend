@@ -1,13 +1,18 @@
 import styled from "styled-components";
+import { device } from "../../styles/device";
 
 const Div = styled.div`
-  max-width: 600px;
-  margin: auto;
+  background: ${(props) => props.theme.grey};
+
+  form {
+    max-width: 300px;
+    min-width: 300px;
+    margin: auto;
+  }
 
   .input {
-    width: 100%;
     display: inline-block;
-    margin-bottom: 12px;
+    margin: 20px 0;
     font-size: 24px;
   }
 
@@ -16,11 +21,22 @@ const Div = styled.div`
     background: #000;
     color: #fff;
     border: none;
-    border-radius: 2px;
+    border-radius: 5px;
     display: inline-block;
     width: 100%;
     padding: 12px;
     margin-bottom: 24px;
+  }
+`;
+
+export const Wrap = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+
+  @media ${device.laptop} {
+    flex-direction: row;
   }
 `;
 
