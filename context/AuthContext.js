@@ -82,7 +82,7 @@ export function AuthProvider(props) {
   useEffect(() => {
     magic = new Magic(MAGIC_PUBIC_KEY);
 
-    // checkUserLoggedIn();
+    checkUserLoggedIn();
   }, []);
 
   return (

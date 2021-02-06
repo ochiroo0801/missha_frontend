@@ -5,21 +5,21 @@ import { API_URL } from "../utils/urls";
 import Product from "../components/Product/Product";
 
 export default function Home({ products, data }) {
-  const { Title, items, description } = data;
+  const { title, items, description } = data;
 
   console.log(data);
 
   return (
     <div>
       <Head>
-        <title>{Title}</title>
+        <title>{title}</title>
         <meta name="description" content={description} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       {items.map((e) => {
         if (e.component === "slider")
-          return <Slider key={e.id} data={e.image} autoplay={true} />;
+          return <Slider key={e.id} data={e.images} autoplay={true} />;
       })}
 
       {products.map((product) => (

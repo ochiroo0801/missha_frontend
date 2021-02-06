@@ -63,12 +63,17 @@ function Account() {
 
       <h3>Your Orders</h3>
       {loading && <h3>Loading...</h3>}
-      {/* {orders ? orders.map((e) => (
-        <div key={e.id}>
-          {new Date(e.created_at).toLocaleDateString("eu-Eu")}
-          {e.product.name} {e.product.price} Kč {e.status}
-        </div>
-      )) : null} */}
+      {orders
+        ? orders.map((e) => (
+            <div key={e.id}>
+              <div>
+                <img src={API_URL + e.product.image.url} alt="" />
+              </div>
+              {new Date(e.createdAt).toLocaleDateString("eu-Eu")}
+              {e.product.name} {e.product.price} Kč {e.status}
+            </div>
+          ))
+        : null}
       <hr />
       <p>Logged in as: {user.email}</p>
       <a href="#" onClick={logoutUser}>
