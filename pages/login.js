@@ -6,18 +6,22 @@ import AuthContext from "../context/AuthContext";
 import Div, { Wrap } from "./Styles/login_style";
 import { API_URL, fromImageToUrl } from "../utils/urls";
 import Wrapper from "../styles/Wrapper";
+import { Button } from "@material-ui/core";
 
 function login({ data }) {
-  const { loginUser } = useContext(AuthContext);
+  const { loginUser, loginFacebook } = useContext(AuthContext);
   const [email, setEmail] = useState("");
-
   const { title, label, placeholder, text, background, button } = data;
-
   const bg = fromImageToUrl(background[0]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     loginUser(email);
+  };
+
+  const handleLoginFacebook = (event) => {
+    event.preventDefault();
+    loginFacebook();
   };
 
   return (
@@ -35,10 +39,10 @@ function login({ data }) {
           <form onSubmit={handleSubmit} noValidate autoComplete="off">
             <h2>{title}</h2>
 
-            {/* <button>Facebook</button>
-            <button>Instagram</button>
+            <Button onClick={handleLoginFacebook}>Facebook</Button>
+            <Button>Instagram</Button>
 
-            <p>эсвэл</p> */}
+            <p>эсвэл</p>
 
             <TextField
               className="input"

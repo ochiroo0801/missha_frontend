@@ -1,9 +1,14 @@
+import { useContext, useState, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import { useContext, useState, useEffect } from "react";
+import { FaBoxOpen, FaUserCog, FaCreditCard } from "react-icons/fa";
+import { BiSupport } from "react-icons/bi";
 import AuthContext from "../context/AuthContext";
 import { API_URL } from "../utils/urls";
+
+import Div from "./Styles/account.style";
 import Wrapper from "../styles/Wrapper";
+import { Button } from "@material-ui/core";
 
 const useOrders = (user, getToken) => {
   const [orders, setOrders] = useState([]);
@@ -35,6 +40,29 @@ const useOrders = (user, getToken) => {
   return { orders, loading };
 };
 
+const items = [
+  {
+    icon: <FaBoxOpen />,
+    link_name: "Захиалгууд",
+    link_url: "/",
+  },
+  {
+    icon: <FaUserCog />,
+    link_name: "Хувийн мэдээлэл",
+    link_url: "/",
+  },
+  {
+    icon: <FaCreditCard />,
+    link_name: "Купон",
+    link_url: "/",
+  },
+  {
+    icon: <BiSupport />,
+    link_name: "Тусламж",
+    link_url: "/",
+  },
+];
+
 function Account() {
   const { logoutUser, user, getToken } = useContext(AuthContext);
 
@@ -51,18 +79,41 @@ function Account() {
     );
   }
 
-  console.log(orders);
-
   return (
     <Wrapper>
       <Head>
         <title>Account page</title>
         <meta name="description" content="The account page, view your order" />
       </Head>
-      <h2>Account page</h2>
+
+      <Div>
+        <div className="profile">
+          <div className="image"></div>
+          <div className="name">
+            <p>{user}</p>
+          </div>
+          <div className="email">
+            <p>{user}</p>
+          </div>
+
+          <div className="menu">
+            {items.map((e) => (
+              <div className="item">
+                <div className="menu_icon">{e.icon}</div>
+                <div className="menu_name">{e.link_name}</div>
+              </div>
+            ))}
+          </div>
+
+          <Button className="logout" href="#" onClick={logoutUser}>
+            гарах
+          </Button>
+        </div>
+        <div className="tabs"></div>
+      </Div>
 
       <h3>Your Orders</h3>
-      {loading && <h3>Loading...</h3>}
+      {/* {loading && <h3>Loading...</h3>}
       {orders
         ? orders.map((e) => (
             <div key={e.id}>
@@ -73,12 +124,7 @@ function Account() {
               {e.product.name} {e.product.price} Kč {e.status}
             </div>
           ))
-        : null}
-      <hr />
-      <p>Logged in as: {user.email}</p>
-      <a href="#" onClick={logoutUser}>
-        Logout
-      </a>
+        : null} */}
     </Wrapper>
   );
 }
