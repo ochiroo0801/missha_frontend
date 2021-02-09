@@ -20,6 +20,7 @@ const useOrders = (user, getToken) => {
         try {
           setLoading(true);
           const token = await getToken();
+          console.log(token);
           // const token = await user.refreshToken;
           const order_res = await fetch(`${API_URL}/orders`, {
             headers: {
@@ -42,21 +43,25 @@ const useOrders = (user, getToken) => {
 
 const items = [
   {
+    id: 1,
     icon: <FaBoxOpen />,
     link_name: "Захиалгууд",
     link_url: "/",
   },
   {
+    id: 2,
     icon: <FaUserCog />,
     link_name: "Хувийн мэдээлэл",
     link_url: "/",
   },
   {
+    id: 3,
     icon: <FaCreditCard />,
     link_name: "Купон",
     link_url: "/",
   },
   {
+    id: 4,
     icon: <BiSupport />,
     link_name: "Тусламж",
     link_url: "/",
@@ -98,7 +103,7 @@ function Account() {
 
           <div className="menu">
             {items.map((e) => (
-              <div className="item">
+              <div key={e.id} className="item">
                 <div className="menu_icon">{e.icon}</div>
                 <div className="menu_name">{e.link_name}</div>
               </div>

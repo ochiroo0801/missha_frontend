@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { Magic } from "magic-sdk";
 import { OAuthExtension } from "@magic-ext/oauth";
 
-import { MAGIC_PUBIC_KEY } from "../utils/urls";
+import { MAGIC_KEY } from "../utils/urls";
 
 let magic;
 
@@ -11,6 +11,7 @@ const AuthContext = createContext();
 
 export function AuthProvider(props) {
   const [user, setUser] = useState(null);
+  const [magic, setMagic] = useState(null);
 
   const router = useRouter();
 
@@ -40,18 +41,15 @@ export function AuthProvider(props) {
   };
 
   // Login User FaceBook
-  const loginFacebook = async () => {
-    try {
-      await magic.oauth.loginWithRedirect({
-        provider: "google",
-        redirectURI:
-          "https://auth.magic.link/v1/oauth2/RhJpU8aipj7H0-kH5W6Z48hRsWdGdIKGZxyF5pNVAG4=/callback",
-      });
-      const result = await magic.oauth.getRedirectResult();
-      // setUser(result);
-      console.log(result);
-    } catch (err) {}
-  };
+  async function loginFacebook(provider) {
+    await magic.oauth.loginWithRedirect({
+      provider,
+      redirectURI: `${process.env.NEXT_PUBLIC_MAGIC_URL}/callback`,
+    });
+    const result = await magic.oauth.getRedirectResult();
+    // setUser(result);
+    console.log(result);
+  }
 
   const checkUserLoggedIn = async () => {
     try {
@@ -67,17 +65,21 @@ export function AuthProvider(props) {
   const getToken = async () => {
     try {
       const token = await magic.user.getIdToken();
+
       return token;
     } catch (err) {}
   };
 
   useEffect(() => {
-    magic = new Magic(MAGIC_PUBIC_KEY);
-    // magic = new Magic(MAGIC_PUBIC_KEY, {
-    //   extensions: [new OAuthExtension()],
-    // });
+    !magic &&
+      setMagic(
+        new Magic(process.env.NEXT_PUBLIC_MAGIC_PUBLISHABLE_KEY, {
+          extensions: [new OAuthExtension()],
+        })
+      );
+    magic?.preload();
     checkUserLoggedIn();
-  }, []);
+  }, [magic]);
 
   return (
     <AuthContext.Provider

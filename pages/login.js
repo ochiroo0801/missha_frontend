@@ -21,7 +21,7 @@ function login({ data }) {
 
   const handleLoginFacebook = (event) => {
     event.preventDefault();
-    loginFacebook();
+    loginFacebook("facebook");
   };
 
   return (
@@ -33,7 +33,7 @@ function login({ data }) {
       <Wrapper>
         <Wrap>
           <div className="image">
-            <img src={bg} alt="" />
+            <img src="" alt="" />
           </div>
 
           <form onSubmit={handleSubmit} noValidate autoComplete="off">
