@@ -33,7 +33,7 @@ function login({ data }) {
       <Wrapper>
         <Wrap>
           <div className="image">
-            <img src="" alt="" />
+            <img src={bg} alt="" />
           </div>
 
           <form onSubmit={handleSubmit} noValidate autoComplete="off">

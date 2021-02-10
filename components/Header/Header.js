@@ -9,10 +9,12 @@ import { FaUser } from "react-icons/fa";
 
 import Top, { Main } from "./headerStyle";
 import Wrapper from "../../styles/Wrapper";
-import { Button } from "@material-ui/core";
+import { Badge, Button, IconButton, withStyles } from "@material-ui/core";
+import ContentContext from "../../context/ContentContext";
 
 function Header() {
   const { user } = useContext(AuthContext);
+  const { products, setProductLength } = useContext(ContentContext);
 
   const router = useRouter();
   const isHome = router.pathname === "/";
@@ -21,6 +23,20 @@ function Header() {
     event.preventDefault();
     router.back();
   };
+
+  const defaultProps = {
+    color: "secondary",
+    children: <AiOutlineShoppingCart />,
+  };
+
+  const StyledBadge = withStyles((theme) => ({
+    badge: {
+      right: -3,
+      top: 0,
+      border: `2px solid ${theme.palette.background.paper}`,
+      padding: "0 4px",
+    },
+  }))(Badge);
 
   return (
     <>
@@ -93,7 +109,14 @@ function Header() {
                 <BsGear />
               </div>
               <div className="item">
-                <AiOutlineShoppingCart />
+                <Link href="/shoppingCart">
+                  <IconButton aria-label="cart">
+                    <StyledBadge
+                      badgeContent={products.length}
+                      {...defaultProps}
+                    />
+                  </IconButton>
+                </Link>
               </div>
             </div>
           </div>

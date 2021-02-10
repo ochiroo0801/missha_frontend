@@ -5,6 +5,7 @@ import Div from "../Styles/product_style";
 import Wrapper from "../../styles/Wrapper";
 
 const Product = ({ product }) => {
+  console.log(product);
   return (
     <Wrapper>
       <Div>

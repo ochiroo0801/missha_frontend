@@ -7,8 +7,6 @@ import Product from "../components/Product/Product";
 export default function Home({ products, data }) {
   const { title, items, description } = data;
 
-  console.log(data);
-
   return (
     <div>
       <Head>
