@@ -102,7 +102,7 @@ export const Main = styled.div`
       height: 100%;
       display: flex;
       align-items: center;
-      font-size: 20px;
+      font-size: 24px;
 
       .item {
         margin-left: 20px;
