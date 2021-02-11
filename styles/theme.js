@@ -1,5 +1,5 @@
 const defaultTheme = {
-  grey: "#F7F7F7",
+  grey: "#F8F8F8",
 };
 
 export default defaultTheme;

@@ -10,11 +10,11 @@ import { FaUser } from "react-icons/fa";
 import Top, { Main } from "./headerStyle";
 import Wrapper from "../../styles/Wrapper";
 import { Badge, Button, IconButton, withStyles } from "@material-ui/core";
-import ContentContext from "../../context/ContentContext";
+import ShopContext from "../../context/ShopContext";
 
 function Header() {
   const { user } = useContext(AuthContext);
-  const { products, setProductLength } = useContext(ContentContext);
+  const { products, setProductLength } = useContext(ShopContext);
 
   const router = useRouter();
   const isHome = router.pathname === "/";

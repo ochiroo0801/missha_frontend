@@ -6,7 +6,7 @@ import AuthContext from "../context/AuthContext";
 import Div, { Wrap } from "./Styles/login_style";
 import { API_URL, fromImageToUrl } from "../utils/urls";
 import Wrapper from "../styles/Wrapper";
-import { Button } from "@material-ui/core";
+import { Button, InputLabel } from "@material-ui/core";
 
 function login({ data }) {
   const { loginUser, loginFacebook } = useContext(AuthContext);

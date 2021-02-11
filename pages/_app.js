@@ -5,7 +5,7 @@ import "swiper/swiper.scss";
 import "swiper/components/navigation/navigation.scss";
 
 import { AuthProvider } from "../context/AuthContext";
-import { ContentProvider } from "../context/ContentContext";
+import { ShopProvider } from "../context/ShopContext";
 
 import Global from "../styles/Global";
 import defaultTheme from "../styles/theme";
@@ -13,7 +13,7 @@ import defaultTheme from "../styles/theme";
 function MyApp({ Component, pageProps }) {
   return (
     <AuthProvider>
-      <ContentProvider>
+      <ShopProvider>
         <content>
           <ThemeProvider theme={defaultTheme}>
             <Header />
@@ -22,7 +22,7 @@ function MyApp({ Component, pageProps }) {
             <Global />
           </ThemeProvider>
         </content>
-      </ContentProvider>
+      </ShopProvider>
     </AuthProvider>
   );
 }

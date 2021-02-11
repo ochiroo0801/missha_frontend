@@ -8,7 +8,7 @@ import { FaShoppingBag } from "react-icons/fa";
 import { fromImageToUrl } from "../../utils/urls";
 import Div from "./product_style";
 import { Button, CardActions } from "@material-ui/core";
-import ContentContext from "../../context/ContentContext";
+import ShopContext from "../../context/ShopContext";
 
 // const actions = [
 //   { icon: <FileCopyIcon />, name: "Copy" },
@@ -27,7 +27,7 @@ const useStyles = makeStyles({
 });
 
 function Product({ product }) {
-  const { handleAddToCart } = useContext(ContentContext);
+  const { handleAddToCart, products } = useContext(ShopContext);
   const classes = useStyles();
 
   return (
@@ -49,7 +49,7 @@ function Product({ product }) {
           <div className="row">
             <div className="product_price">{product.price} Kč</div>
             <Button
-              onClick={() => handleAddToCart([product])}
+              onClick={() => handleAddToCart(product)}
               variant="contained"
               color="secondary"
               startIcon={<FaShoppingBag />}

@@ -1,13 +1,23 @@
 import { useContext } from "react";
+import CounterInput from "react-counter-input";
 import Head from "next/head";
-import ContentContext from "../context/ContentContext";
+import ShopContext from "../context/ShopContext";
 import Div, { Empty, Cart } from "./Styles/shoppingCart_style";
 import { fromImageToUrl } from "../utils/urls";
 import { Link } from "@material-ui/core";
 import Wrapper from "../styles/Wrapper";
 
 function shoppingCart() {
-  const { products, handleRemoveCart } = useContext(ContentContext);
+  const {
+    products,
+    handleRemoveCart,
+    totalPrice,
+    count,
+    setCount,
+  } = useContext(ShopContext);
+
+  console.log(count);
+
   return (
     <div>
       <Head>
@@ -32,6 +42,7 @@ function shoppingCart() {
             </Empty>
           ) : (
             <Cart>
+              <h1>{totalPrice}</h1>
               {products?.map((e) => (
                 <div className="cartItem" key={e.id}>
                   <div className="product_info">
@@ -47,7 +58,15 @@ function shoppingCart() {
                         <p>{e.name}</p>
                         <p>{e.size} ml</p>
                       </div>
-                      <div className="total">{e.price} Kč</div>
+                      <div className="total">
+                        <p>{e.price} Kč</p>
+                        <h2>{e.price * count}</h2>
+                        <CounterInput
+                          min={1}
+                          max={10}
+                          onCountChange={(count) => setCount(count)}
+                        />
+                      </div>
                     </div>
                   </div>
 
