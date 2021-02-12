@@ -4,6 +4,8 @@ import Link from "next/link";
 import { FaBoxOpen, FaUserCog, FaCreditCard } from "react-icons/fa";
 import { BiSupport } from "react-icons/bi";
 import AuthContext from "../context/AuthContext";
+import { authOut } from "../firebase";
+
 import { API_URL } from "../utils/urls";
 
 import Div from "./Styles/account.style";
@@ -84,6 +86,8 @@ function Account() {
     );
   }
 
+  console.log(user);
+
   return (
     <Wrapper>
       <Head>
@@ -93,12 +97,14 @@ function Account() {
 
       <Div>
         <div className="profile">
-          <div className="image"></div>
+          <div className="image">
+            <img src={user.photoURL} />
+          </div>
           <div className="name">
-            <p>{user}</p>
+            <p>{user.displayName}</p>
           </div>
           <div className="email">
-            <p>{user}</p>
+            <p>{user.email}</p>
           </div>
 
           <div className="menu">
@@ -110,7 +116,13 @@ function Account() {
             ))}
           </div>
 
-          <Button className="logout" href="#" onClick={logoutUser}>
+          <Button
+            className="logout"
+            href="#"
+            onClick={() => {
+              authOut;
+            }}
+          >
             гарах
           </Button>
         </div>

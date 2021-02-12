@@ -15,6 +15,11 @@ const Div = styled.div`
       height: 100px;
       border-radius: 50%;
       background: #000;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+      }
     }
 
     .name {

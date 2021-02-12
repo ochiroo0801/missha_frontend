@@ -1,15 +1,17 @@
 import { useState, useContext } from "react";
 import Head from "next/head";
 import TextField from "@material-ui/core/TextField";
+import { Button } from "@material-ui/core";
 
 import AuthContext from "../context/AuthContext";
+import { facebookProvider, googleProvider } from "../firebase";
+
 import Div, { Wrap } from "./Styles/login_style";
 import { API_URL, fromImageToUrl } from "../utils/urls";
 import Wrapper from "../styles/Wrapper";
-import { Button, InputLabel } from "@material-ui/core";
 
 function login({ data }) {
-  const { loginUser, loginFacebook } = useContext(AuthContext);
+  const { loginUser, handleLogin, user } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const { title, label, placeholder, text, background, button } = data;
   const bg = fromImageToUrl(background[0]);
@@ -17,11 +19,6 @@ function login({ data }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     loginUser(email);
-  };
-
-  const handleLoginFacebook = (event) => {
-    event.preventDefault();
-    loginFacebook("facebook");
   };
 
   return (
@@ -39,8 +36,10 @@ function login({ data }) {
           <form onSubmit={handleSubmit} noValidate autoComplete="off">
             <h2>{title}</h2>
 
-            <Button onClick={handleLoginFacebook}>Facebook</Button>
-            <Button>Instagram</Button>
+            <Button onClick={() => handleLogin(facebookProvider)}>
+              Facebook
+            </Button>
+            <Button onClick={() => handleLogin(googleProvider)}>Google</Button>
 
             <p>эсвэл</p>
 

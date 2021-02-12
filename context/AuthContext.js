@@ -1,5 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import { auth } from "../firebase";
+
 import { Magic } from "magic-sdk";
 import { OAuthExtension } from "@magic-ext/oauth";
 
@@ -14,6 +16,31 @@ export function AuthProvider(props) {
   const [magic, setMagic] = useState(null);
 
   const router = useRouter();
+
+  const handleLogin = (loginMethod) => {
+    // loginFacebook("facebook");
+
+    auth
+      .signInWithPopup(loginMethod)
+      .then((result) => {
+        var credential = result.credential;
+        var token = credential.accessToken;
+        var user = result.user;
+
+        setUser(user);
+        router.push("/");
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // The email of the user's account used.
+        var email = error.email;
+        // The firebase.auth.AuthCredential type that was used.
+        var credential = error.credential;
+        // ...
+      });
+  };
 
   /**
    * Adds email to user
@@ -70,16 +97,16 @@ export function AuthProvider(props) {
     } catch (err) {}
   };
 
-  useEffect(() => {
-    !magic &&
-      setMagic(
-        new Magic(process.env.NEXT_PUBLIC_MAGIC_PUBLISHABLE_KEY, {
-          extensions: [new OAuthExtension()],
-        })
-      );
-    magic?.preload();
-    checkUserLoggedIn();
-  }, [magic]);
+  // useEffect(() => {
+  //   !magic &&
+  //     setMagic(
+  //       new Magic(process.env.NEXT_PUBLIC_MAGIC_PUBLISHABLE_KEY, {
+  //         extensions: [new OAuthExtension()],
+  //       })
+  //     );
+  //   magic?.preload();
+  //   checkUserLoggedIn();
+  // }, [magic]);
 
   return (
     <AuthContext.Provider
@@ -90,6 +117,7 @@ export function AuthProvider(props) {
         logoutUser,
         getToken,
         loginFacebook,
+        handleLogin,
       }}
     >
       {props.children}
