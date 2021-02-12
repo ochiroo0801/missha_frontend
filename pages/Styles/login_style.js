@@ -10,6 +10,11 @@ const Div = styled.div`
     margin: auto;
   }
 
+  .buttons {
+    display: flex;
+    flex-direction: column;
+  }
+
   .input {
     display: inline-block;
     margin: 20px 0;

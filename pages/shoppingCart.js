@@ -60,11 +60,11 @@ function shoppingCart() {
                       </div>
                       <div className="total">
                         <p>{e.price} Kč</p>
-                        <h2>{e.price * count}</h2>
+
                         <CounterInput
                           min={1}
                           max={10}
-                          onCountChange={(count) => setCount(count)}
+                          onCountChange={(count) => console.log(count)}
                         />
                       </div>
                     </div>

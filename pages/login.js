@@ -35,11 +35,14 @@ function login({ data }) {
 
           <form onSubmit={handleSubmit} noValidate autoComplete="off">
             <h2>{title}</h2>
-
-            <Button onClick={() => handleLogin(facebookProvider)}>
-              Facebook
-            </Button>
-            <Button onClick={() => handleLogin(googleProvider)}>Google</Button>
+            <div className="buttons">
+              <Button onClick={() => handleLogin(facebookProvider)}>
+                Facebook
+              </Button>
+              <Button onClick={() => handleLogin(googleProvider)}>
+                Google
+              </Button>
+            </div>
 
             <p>эсвэл</p>
 

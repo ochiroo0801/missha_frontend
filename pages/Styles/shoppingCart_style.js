@@ -9,6 +9,11 @@ export const Empty = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  img {
+    min-width: 300px;
+    max-width: 60vh;
+  }
 `;
 
 export const Cart = styled.div`
