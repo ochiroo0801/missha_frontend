@@ -3,18 +3,18 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import AuthContext from "../../context/AuthContext";
 // ICONS
-import { BsSearch, BsFillHeartFill, BsGear } from "react-icons/bs";
+import { BsFillHeartFill } from "react-icons/bs";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaUser } from "react-icons/fa";
 
-import Top, { Main } from "./headerStyle";
+import Top, { Main, Div } from "./headerStyle";
 import Wrapper from "../../styles/Wrapper";
-import { Badge, Button, IconButton, withStyles } from "@material-ui/core";
+import { Badge, Button, IconButton } from "@material-ui/core";
 import ShopContext from "../../context/ShopContext";
 
 function Header() {
   const { user } = useContext(AuthContext);
-  const { products, setProductLength } = useContext(ShopContext);
+  const { products } = useContext(ShopContext);
 
   const router = useRouter();
   const isHome = router.pathname === "/";
@@ -29,17 +29,8 @@ function Header() {
     children: <AiOutlineShoppingCart />,
   };
 
-  const StyledBadge = withStyles((theme) => ({
-    badge: {
-      right: -3,
-      top: 0,
-      border: `2px solid ${theme.palette.background.paper}`,
-      padding: "0 4px",
-    },
-  }))(Badge);
-
   return (
-    <>
+    <Div style={{ zIndex: "100" }}>
       <Top>
         <Wrapper>
           <div className="container">
@@ -68,6 +59,13 @@ function Header() {
                   )}
                 </p>
               </div>
+              <div className="item">
+                <Link href="/shoppingCart">
+                  <IconButton className="icon_basket" aria-label="cart">
+                    <Badge badgeContent={products.length} {...defaultProps} />
+                  </IconButton>
+                </Link>
+              </div>
             </div>
           </div>
         </Wrapper>
@@ -92,37 +90,26 @@ function Header() {
             <div className="menu">
               <ul>
                 <Button>
-                  <Link href="/">Home</Link>
+                  <Link href="/">Нүүр</Link>
                 </Button>
                 <Button>
-                  <Link href="/shop">Shop</Link>
+                  <Link href="/shop">дэлгүүр</Link>
                 </Button>
-                <Button>Products</Button>
-                <Button>Event</Button>
+                <Button>
+                  <Link href="/makeup">гоо сайхан</Link>
+                </Button>
+                <Button>
+                  <Link href="/crystal">болор эдлэл</Link>
+                </Button>
+                <Button>
+                  <Link href="/kitchen">гал тогоо</Link>
+                </Button>
               </ul>
-            </div>
-            <div className="tools">
-              <div className="item">
-                <BsSearch />
-              </div>
-              <div className="item">
-                <BsGear />
-              </div>
-              <div className="item">
-                <Link href="/shoppingCart">
-                  <IconButton aria-label="cart">
-                    <StyledBadge
-                      badgeContent={products.length}
-                      {...defaultProps}
-                    />
-                  </IconButton>
-                </Link>
-              </div>
             </div>
           </div>
         </Main>
       </Wrapper>
-    </>
+    </Div>
   );
 }
 

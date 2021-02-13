@@ -3,6 +3,13 @@ import { fromImageToUrl, API_URL } from "../../utils/urls";
 import BuyButton from "../../components/BuyButton/BuyButton";
 import Div from "../Styles/product_style";
 import Wrapper from "../../styles/Wrapper";
+import { Button, IconButton } from "@material-ui/core";
+import {
+  FaFacebook,
+  FaInstagram,
+  FaShoppingBag,
+  FaTwitter,
+} from "react-icons/fa";
 
 const Product = ({ product }) => {
   return (
@@ -23,11 +30,26 @@ const Product = ({ product }) => {
             <h3 className="name">{product.name}</h3>
             <h4 className="price">{product.price} Kč</h4>
             <h4 className="size">{product.size} ml</h4>
-            <BuyButton product={product} />
+            <Button
+              startIcon={<FaShoppingBag />}
+              variant="contained"
+              color="secondary"
+            >
+              Сагсанд нэмэх
+            </Button>
+            {/* <BuyButton product={product} /> */}
             <p className="details">{product.content}</p>
             <div className="share">
               <h4>Сошилоор хуваалцах</h4>
-              <div className="item">F</div>
+              <IconButton variant="contained" color="secondary">
+                <FaInstagram />
+              </IconButton>
+              <IconButton variant="contained" color="primary">
+                <FaFacebook />
+              </IconButton>
+              <IconButton variant="contained" color="primary">
+                <FaTwitter />
+              </IconButton>
             </div>
           </div>
         </div>

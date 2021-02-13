@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { device } from "../../styles/device";
 
 const Div = styled.div`
-  background: ${(props) => props.theme.grey};
+  background: ${(props) => props.theme.grey_bg};
 
   form {
     max-width: 300px;
@@ -10,9 +10,19 @@ const Div = styled.div`
     margin: auto;
   }
 
+  .or {
+  }
+
   .buttons {
     display: flex;
     flex-direction: column;
+    border-bottom: 1px dotted ${(props) => props.theme.grey};
+
+    padding: 20px 0;
+
+    button {
+      margin-top: 20px;
+    }
   }
 
   .input {

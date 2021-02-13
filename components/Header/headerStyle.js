@@ -1,7 +1,11 @@
 import styled from "styled-components";
 
+export const Div = styled.div`
+  box-shadow: -2px -2px 10px ${(props) => props.theme.grey};
+`;
+
 const Top = styled.div`
-  background: #f8f8f8;
+  background: ${(props) => props.theme.black};
 
   .container {
     height: 50px;
@@ -9,7 +13,7 @@ const Top = styled.div`
     align-items: center;
 
     p {
-      color: #999999;
+      color: #fff;
     }
 
     .frontSide {
@@ -22,15 +26,19 @@ const Top = styled.div`
 
     .backSide {
       display: flex;
+      align-items: center;
 
       .item {
         display: flex;
         margin-left: 20px;
-        color: #999999;
 
         .icon {
-          color: #999999;
+          color: #fff;
           font-size: 14px;
+        }
+
+        .icon_basket {
+          color: #fff;
         }
       }
     }
@@ -60,9 +68,6 @@ export const Main = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: sticky;
-  top: 0px;
-  z-index: 9999;
 
   .frontSide {
     display: flex;
@@ -98,16 +103,9 @@ export const Main = styled.div`
       }
     }
 
-    .tools {
-      height: 100%;
-      display: flex;
-      align-items: center;
-      font-size: 24px;
-
-      .item {
-        margin-left: 20px;
-        cursor: pointer;
-      }
+    .item {
+      margin-left: 20px;
+      cursor: pointer;
     }
   }
 `;

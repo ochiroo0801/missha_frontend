@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import Head from "next/head";
 import TextField from "@material-ui/core/TextField";
 import { Button } from "@material-ui/core";
+import { FaFacebookF, FaGooglePlusG } from "react-icons/fa";
 
 import AuthContext from "../context/AuthContext";
 import { facebookProvider, googleProvider } from "../firebase";
@@ -36,15 +37,23 @@ function login({ data }) {
           <form onSubmit={handleSubmit} noValidate autoComplete="off">
             <h2>{title}</h2>
             <div className="buttons">
-              <Button onClick={() => handleLogin(facebookProvider)}>
+              <Button
+                variant="contained"
+                startIcon={<FaFacebookF />}
+                color="primary"
+                onClick={() => handleLogin(facebookProvider)}
+              >
                 Facebook
               </Button>
-              <Button onClick={() => handleLogin(googleProvider)}>
+              <Button
+                variant="contained"
+                startIcon={<FaGooglePlusG />}
+                color="secondary"
+                onClick={() => handleLogin(googleProvider)}
+              >
                 Google
               </Button>
             </div>
-
-            <p>эсвэл</p>
 
             <TextField
               className="input"

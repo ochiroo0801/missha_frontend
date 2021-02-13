@@ -6,13 +6,10 @@ export function ShopProvider(props) {
   const [data, setData] = useState([]);
   const [products, setProducts] = useState([]);
   const [totalPrice, setTotalPrice] = useState(Number);
-  const [count, setCount] = useState(Number);
 
   const handleAddToCart = (products) => {
     setProducts((item) => [...item, products]);
     setTotalPrice((item) => item + products.price);
-    console.log(products.price);
-    console.log(totalPrice);
   };
 
   const handleRemoveCart = () => {
@@ -29,8 +26,6 @@ export function ShopProvider(props) {
         handleRemoveCart,
         totalPrice,
         setTotalPrice,
-        count,
-        setCount,
       }}
     >
       {props.children}
