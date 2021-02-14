@@ -22,6 +22,15 @@ export const Empty = styled.div`
 export const Cart = styled.div`
   display: flex;
   justify-content: space-between;
+
+  h3 {
+    font-size: 22px;
+    font-weight: 500;
+    color: ${(props) => props.theme.grey};
+    border-bottom: 1px dashed ${(props) => props.theme.grey};
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+  }
 `;
 
 export const Checkout_Products = styled.div`
@@ -70,7 +79,7 @@ export const Checkout_Products = styled.div`
           flex-direction: column;
 
           h4 {
-            color: ${(props) => props.theme.blue};
+            color: ${(props) => props.theme.black};
             font-size: 12px;
             font-weight: 500;
             padding: 5px 0;
@@ -91,9 +100,14 @@ export const Checkout_Products = styled.div`
           flex-direction: column;
           justify-content: space-between;
 
+          h4 {
+            font-size: 18px;
+            font-weight: 500;
+            color: ${(props) => props.theme.black};
+          }
+
           p {
-            font-size: 17px;
-            font-weight: 700;
+            font-size: 10px;
           }
         }
       }
@@ -103,12 +117,14 @@ export const Checkout_Products = styled.div`
 
 export const Checkout_Method = styled.div`
   flex: 0.48;
-  width: 100%;
-  height: 50vh;
-  background: #fff;
-  border-radius: 20px;
   position: sticky;
   top: 0;
+
+  .container {
+    height: 50vh;
+    background: #fff;
+    border-radius: 20px;
+  }
 `;
 
 export default Div;

@@ -9,11 +9,17 @@ export function ShopProvider(props) {
 
   const handleAddToCart = (products) => {
     setProducts((item) => [...item, products]);
-    setTotalPrice((item) => item + products.price);
+    // setTotalPrice((item) => item + products.price);
   };
 
   const handleRemoveCart = () => {
     setProducts(null);
+  };
+
+  const handleRemoveItem = (id) => {
+    const newList = products.filter((item) => item.id !== id);
+
+    setProducts(newList);
   };
 
   return (
@@ -26,6 +32,7 @@ export function ShopProvider(props) {
         handleRemoveCart,
         totalPrice,
         setTotalPrice,
+        handleRemoveItem,
       }}
     >
       {props.children}

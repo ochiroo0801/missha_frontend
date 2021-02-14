@@ -1,5 +1,10 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import Head from "next/head";
+import { Button, Link } from "@material-ui/core";
+
+import { MdDeleteForever } from "react-icons/md";
+import { BsBoxArrowLeft } from "react-icons/bs";
+
 import ShopContext from "../context/ShopContext";
 import Div, {
   Empty,
@@ -8,14 +13,29 @@ import Div, {
   Checkout_Method,
 } from "./Styles/shoppingCart_style";
 import { fromImageToUrl } from "../utils/urls";
-import { Button, Link } from "@material-ui/core";
 import Wrapper from "../styles/Wrapper";
-
-import { MdDeleteForever } from "react-icons/md";
-import { BsBoxArrowLeft } from "react-icons/bs";
+import BuyButton from "../components/BuyButton/BuyButton";
 
 function shoppingCart() {
-  const { products, handleRemoveCart, totalPrice } = useContext(ShopContext);
+  const {
+    handleRemoveCart,
+    handleRemoveItem,
+    products,
+    totalPrice,
+    setTotalPrice,
+  } = useContext(ShopContext);
+
+  useEffect(() => {
+    const price = products.map((e) => e.price);
+
+    if (price.length !== 0) {
+      const total = price.reduce(myFunction);
+      function myFunction(total, value) {
+        return total + value;
+      }
+      setTotalPrice(total);
+    }
+  }, []);
 
   return (
     <div>
@@ -43,6 +63,7 @@ function shoppingCart() {
             <Wrapper>
               <Cart>
                 <Checkout_Products>
+                  <h3>Сагс</h3>
                   <Button
                     variant="contained"
                     startIcon={<MdDeleteForever />}
@@ -51,11 +72,11 @@ function shoppingCart() {
                     className="tools"
                   >
                     <Link href="/shoppingCart" onClick={handleRemoveCart}>
-                      <a>Сагсыг хоослох</a>
+                      <p>Сагсыг хоослох</p>
                     </Link>
                   </Button>
                   {products?.map((e) => (
-                    <div className="cartItem" key={e.id + e.price}>
+                    <div className="cartItem" key={e.id}>
                       <div className="product_info">
                         <Link href={e.slug}>
                           <div className="image">
@@ -70,17 +91,16 @@ function shoppingCart() {
                             <p>{e.size} ml</p>
                           </div>
                           <div className="priceAndTools">
-                            <p>{e.price} Kč</p>
+                            <h4>{e.price} Kč</h4>
                             <Button
                               variant="contained"
                               startIcon={<MdDeleteForever />}
                               color="primary"
                               size="small"
                               className="tools"
+                              onClick={() => handleRemoveItem(e.id)}
                             >
-                              <Link href="/shoppingCart">
-                                <a>Устгах</a>
-                              </Link>
+                              <p>Устгах</p>
                             </Button>
                           </div>
                         </div>
@@ -92,7 +112,11 @@ function shoppingCart() {
                 </Checkout_Products>
 
                 <Checkout_Method>
-                  <h1>{totalPrice}</h1>
+                  <h3>Захиалга</h3>
+                  <div className="container">
+                    <h1>{totalPrice}</h1>
+                    <BuyButton product={products} />
+                  </div>
                 </Checkout_Method>
               </Cart>
             </Wrapper>

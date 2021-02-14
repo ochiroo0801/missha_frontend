@@ -1,6 +1,5 @@
 import Head from "next/head";
 import { fromImageToUrl, API_URL } from "../../utils/urls";
-import BuyButton from "../../components/BuyButton/BuyButton";
 import Div from "../Styles/product_style";
 import Wrapper from "../../styles/Wrapper";
 import { Button, IconButton } from "@material-ui/core";
@@ -37,7 +36,6 @@ const Product = ({ product }) => {
             >
               Сагсанд нэмэх
             </Button>
-            {/* <BuyButton product={product} /> */}
             <p className="details">{product.content}</p>
             <div className="share">
               <h4>Сошилоор хуваалцах</h4>

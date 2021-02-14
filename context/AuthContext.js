@@ -14,6 +14,7 @@ const AuthContext = createContext();
 export function AuthProvider(props) {
   const [user, setUser] = useState(null);
   const [magic, setMagic] = useState(null);
+  const [token, setToken] = useState(null);
 
   const router = useRouter();
 
@@ -27,6 +28,7 @@ export function AuthProvider(props) {
         var token = credential.accessToken;
         var user = result.user;
 
+        setToken(token);
         setUser(user);
         router.push("/");
       })
@@ -98,15 +100,15 @@ export function AuthProvider(props) {
   };
 
   // useEffect(() => {
-  //   !magic &&
-  //     setMagic(
-  //       new Magic(process.env.NEXT_PUBLIC_MAGIC_PUBLISHABLE_KEY, {
-  //         extensions: [new OAuthExtension()],
-  //       })
-  //     );
-  //   magic?.preload();
-  //   checkUserLoggedIn();
-  // }, [magic]);
+  //   // !magic &&
+  //   //   setMagic(
+  //   //     new Magic(process.env.NEXT_PUBLIC_MAGIC_PUBLISHABLE_KEY, {
+  //   //       extensions: [new OAuthExtension()],
+  //   //     })
+  //   //   );
+  //   // magic?.preload();
+  //   // checkUserLoggedIn();
+  // }, []);
 
   return (
     <AuthContext.Provider
@@ -118,6 +120,7 @@ export function AuthProvider(props) {
         getToken,
         loginFacebook,
         handleLogin,
+        token,
       }}
     >
       {props.children}
