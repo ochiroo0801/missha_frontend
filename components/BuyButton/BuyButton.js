@@ -9,7 +9,7 @@ import Div from "./buybuttonStyle";
 const stripePromise = loadStripe(STRIPE_PK);
 
 function BuyButton({ product }) {
-  const { user, getToken, token } = useContext(AuthContext);
+  const { user, getToken } = useContext(AuthContext);
   const router = useRouter();
 
   const redirectToLogin = () => {
@@ -18,11 +18,11 @@ function BuyButton({ product }) {
 
   console.log(product);
   console.log(user);
-  console.log(token);
 
   const handleBuy = async () => {
     const stripe = await stripePromise;
-    // const token = await getToken();
+    const token = await getToken();
+    console.log(token);
 
     const res = await fetch(`${API_URL}/orders`, {
       method: "POST",

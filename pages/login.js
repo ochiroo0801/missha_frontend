@@ -12,7 +12,7 @@ import { API_URL, fromImageToUrl } from "../utils/urls";
 import Wrapper from "../styles/Wrapper";
 
 function login({ data }) {
-  const { loginUser, handleLogin, user } = useContext(AuthContext);
+  const { loginUser, handleLogin, user, loginSocial } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const { title, label, placeholder, text, background, button } = data;
   const bg = fromImageToUrl(background[0]);
@@ -49,7 +49,7 @@ function login({ data }) {
                 variant="contained"
                 startIcon={<FaGooglePlusG />}
                 color="secondary"
-                onClick={() => handleLogin(googleProvider)}
+                onClick={loginSocial}
               >
                 Google
               </Button>

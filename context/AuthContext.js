@@ -14,35 +14,8 @@ const AuthContext = createContext();
 export function AuthProvider(props) {
   const [user, setUser] = useState(null);
   const [magic, setMagic] = useState(null);
-  const [token, setToken] = useState(null);
 
   const router = useRouter();
-
-  const handleLogin = (loginMethod) => {
-    // loginFacebook("facebook");
-
-    auth
-      .signInWithPopup(loginMethod)
-      .then((result) => {
-        var credential = result.credential;
-        var token = credential.accessToken;
-        var user = result.user;
-
-        setToken(token);
-        setUser(user);
-        router.push("/");
-      })
-      .catch((error) => {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // The email of the user's account used.
-        var email = error.email;
-        // The firebase.auth.AuthCredential type that was used.
-        var credential = error.credential;
-        // ...
-      });
-  };
 
   /**
    * Adds email to user
@@ -58,9 +31,7 @@ export function AuthProvider(props) {
     }
   };
 
-  /**
-   * Sets the user to null
-   */
+  // Sets the user to null
   const logoutUser = async () => {
     try {
       await magic.user.logout();
@@ -69,15 +40,18 @@ export function AuthProvider(props) {
     } catch (err) {}
   };
 
-  // Login User FaceBook
-  async function loginFacebook(provider) {
-    await magic.oauth.loginWithRedirect({
-      provider,
-      redirectURI: `${process.env.NEXT_PUBLIC_MAGIC_URL}/callback`,
-    });
-    const result = await magic.oauth.getRedirectResult();
-    // setUser(result);
-    console.log(result);
+  // Login User With Social
+  async function loginSocial() {
+    try {
+      await magic.oauth.loginWithRedirect({
+        provider: "google",
+        redirectURI: `${process.env.NEXT_PUBLIC_MAGIC_URL}`,
+      });
+      const result = await magic.oauth.getRedirectResult();
+      console.log(result);
+    } catch (err) {
+      setUser(null);
+    }
   }
 
   const checkUserLoggedIn = async () => {
@@ -99,16 +73,17 @@ export function AuthProvider(props) {
     } catch (err) {}
   };
 
-  // useEffect(() => {
-  //   // !magic &&
-  //   //   setMagic(
-  //   //     new Magic(process.env.NEXT_PUBLIC_MAGIC_PUBLISHABLE_KEY, {
-  //   //       extensions: [new OAuthExtension()],
-  //   //     })
-  //   //   );
-  //   // magic?.preload();
-  //   // checkUserLoggedIn();
-  // }, []);
+  useEffect(() => {
+    !magic &&
+      setMagic(
+        new Magic(process.env.NEXT_PUBLIC_MAGIC_PUBLISHABLE_KEY, {
+          extensions: [new OAuthExtension()],
+        })
+      );
+    magic?.preload();
+
+    checkUserLoggedIn();
+  }, [magic]);
 
   return (
     <AuthContext.Provider
@@ -118,9 +93,7 @@ export function AuthProvider(props) {
         loginUser,
         logoutUser,
         getToken,
-        loginFacebook,
-        handleLogin,
-        token,
+        loginSocial,
       }}
     >
       {props.children}

@@ -11,6 +11,7 @@ import {
 } from "react-icons/fa";
 
 const Product = ({ product }) => {
+  console.log(product);
   return (
     <Wrapper>
       <Div>

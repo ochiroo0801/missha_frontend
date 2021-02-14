@@ -4,7 +4,6 @@ import Link from "next/link";
 import { FaBoxOpen, FaUserCog, FaCreditCard } from "react-icons/fa";
 import { BiSupport } from "react-icons/bi";
 import AuthContext from "../context/AuthContext";
-import { authOut } from "../firebase";
 
 import { API_URL } from "../utils/urls";
 
@@ -86,8 +85,6 @@ function Account() {
     );
   }
 
-  console.log(user);
-
   return (
     <Wrapper>
       <Head>
@@ -116,13 +113,7 @@ function Account() {
             ))}
           </div>
 
-          <Button
-            className="logout"
-            href="#"
-            onClick={() => {
-              authOut;
-            }}
-          >
+          <Button className="logout" href="#" onClick={logoutUser}>
             гарах
           </Button>
         </div>
