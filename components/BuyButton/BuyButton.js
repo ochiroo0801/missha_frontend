@@ -26,7 +26,7 @@ function BuyButton({ product }) {
 
     const res = await fetch(`${API_URL}/orders`, {
       method: "POST",
-      body: JSON.stringify({ product }),
+      body: JSON.stringify({ ...product }),
       headers: {
         "Content-type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -34,6 +34,8 @@ function BuyButton({ product }) {
     });
 
     const session = await res.json();
+
+    console.log(session);
 
     const result = await stripe.redirectToCheckout({
       sessionId: session.id,
