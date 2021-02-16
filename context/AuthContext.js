@@ -1,11 +1,8 @@
 import { createContext, useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { auth } from "../firebase";
 
 import { Magic } from "magic-sdk";
 import { OAuthExtension } from "@magic-ext/oauth";
-
-import { MAGIC_KEY } from "../utils/urls";
 
 let magic;
 
@@ -41,10 +38,10 @@ export function AuthProvider(props) {
   };
 
   // Login User With Social
-  async function loginSocial() {
+  async function loginSocial(provider) {
     try {
       await magic.oauth.loginWithRedirect({
-        provider: "google",
+        provider,
         redirectURI: `${process.env.NEXT_PUBLIC_MAGIC_URL}`,
       });
       const result = await magic.oauth.getRedirectResult();

@@ -5,7 +5,6 @@ import { Button } from "@material-ui/core";
 import { FaFacebookF, FaGooglePlusG } from "react-icons/fa";
 
 import AuthContext from "../context/AuthContext";
-import { facebookProvider, googleProvider } from "../firebase";
 
 import Div, { Wrap } from "./Styles/login_style";
 import { API_URL, fromImageToUrl } from "../utils/urls";
@@ -33,15 +32,14 @@ function login({ data }) {
           <div className="image">
             <img src={bg} alt="" />
           </div>
-
-          <form onSubmit={handleSubmit} noValidate autoComplete="off">
+          <div className="formSection">
             <h2>{title}</h2>
             <div className="buttons">
               <Button
                 variant="contained"
                 startIcon={<FaFacebookF />}
                 color="primary"
-                onClick={() => handleLogin(facebookProvider)}
+                onClick={() => loginSocial("facebook")}
               >
                 Facebook
               </Button>
@@ -49,30 +47,31 @@ function login({ data }) {
                 variant="contained"
                 startIcon={<FaGooglePlusG />}
                 color="secondary"
-                onClick={loginSocial}
+                onClick={() => loginSocial("google")}
               >
                 Google
               </Button>
             </div>
+            <form onSubmit={handleSubmit} noValidate autoComplete="off">
+              <TextField
+                className="input"
+                fullWidth={true}
+                color="secondary"
+                multiline
+                id="outlined-secondary"
+                label={label}
+                type="email"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                placeholder={placeholder}
+              />
 
-            <TextField
-              className="input"
-              fullWidth={true}
-              color="secondary"
-              multiline
-              id="outlined-secondary"
-              label={label}
-              type="email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-              placeholder={placeholder}
-            />
-
-            <button className="button" type="submit">
-              {button}
-            </button>
+              <button className="button" type="submit">
+                {button}
+              </button>
+            </form>
             <p>{text}</p>
-          </form>
+          </div>
         </Wrap>
       </Wrapper>
     </Div>

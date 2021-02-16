@@ -74,6 +74,8 @@ function Account() {
 
   const { orders, loading } = useOrders(user, getToken);
 
+  console.log(orders);
+
   if (!user) {
     return (
       <div>

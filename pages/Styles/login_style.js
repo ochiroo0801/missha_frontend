@@ -4,13 +4,10 @@ import { device } from "../../styles/device";
 const Div = styled.div`
   background: ${(props) => props.theme.grey_bg};
 
-  form {
+  .formSection {
     max-width: 300px;
     min-width: 300px;
     margin: auto;
-  }
-
-  .or {
   }
 
   .buttons {

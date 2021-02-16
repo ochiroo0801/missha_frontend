@@ -5,6 +5,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import AuthContext from "../../context/AuthContext";
 import { STRIPE_PK, API_URL } from "../../utils/urls";
 import Div from "./buybuttonStyle";
+import { Button } from "@material-ui/core";
 
 const stripePromise = loadStripe(STRIPE_PK);
 
@@ -16,26 +17,22 @@ function BuyButton({ product }) {
     router.push("/login");
   };
 
-  console.log(product);
-  console.log(user);
-
   const handleBuy = async () => {
     const stripe = await stripePromise;
     const token = await getToken();
-    console.log(token);
+
+    console.log(product);
 
     const res = await fetch(`${API_URL}/orders`, {
       method: "POST",
-      body: JSON.stringify({ ...product }),
+      body: JSON.stringify({ product }),
       headers: {
         "Content-type": "application/json",
         Authorization: `Bearer ${token}`,
       },
     });
-
     const session = await res.json();
-
-    console.log(session);
+    console.log("session", session);
 
     const result = await stripe.redirectToCheckout({
       sessionId: session.id,
@@ -45,18 +42,23 @@ function BuyButton({ product }) {
   return (
     <div>
       {!user && (
-        <Div>
+        <div>
           <button onClick={redirectToLogin} className="buy">
             Login to Buy
           </button>
-        </Div>
+        </div>
       )}
       {user && (
-        <Div>
-          <button onClick={handleBuy} className="buy">
+        <div>
+          <Button
+            color="secondary"
+            variant="contained"
+            onClick={handleBuy}
+            className="buy"
+          >
             Buy
-          </button>
-        </Div>
+          </Button>
+        </div>
       )}
     </div>
   );
