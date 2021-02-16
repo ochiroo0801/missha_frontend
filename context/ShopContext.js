@@ -6,10 +6,21 @@ export function ShopProvider(props) {
   const [data, setData] = useState([]);
   const [products, setProducts] = useState([]);
   const [totalPrice, setTotalPrice] = useState(Number);
+  const [rating, setRating] = useState(4);
+  const [quantity, setQuantity] = useState(Number);
 
-  const handleAddToCart = (products) => {
-    setProducts((item) => [...item, products]);
-    // setTotalPrice((item) => item + products.price);
+  const QuantityChanger = () => {
+    const [quantity, setQuantity] = useState(1);
+
+    return { setQuantity, quantity };
+  };
+
+  const handleChange = (event, stateQuantity) => {
+    stateQuantity(event);
+  };
+
+  const handleAddToCart = (products, quantity) => {
+    setProducts((item) => [...item, [products, quantity]]);
   };
 
   const handleRemoveCart = () => {
@@ -33,6 +44,12 @@ export function ShopProvider(props) {
         totalPrice,
         setTotalPrice,
         handleRemoveItem,
+        rating,
+        setRating,
+        quantity,
+        setQuantity,
+        handleChange,
+        QuantityChanger,
       }}
     >
       {props.children}

@@ -60,7 +60,7 @@ function Header() {
                 </p>
               </div>
               <div className="item">
-                <Link href="/shoppingCart">
+                <Link href="/basket">
                   <IconButton className="icon_basket" aria-label="cart">
                     <Badge badgeContent={products.length} {...defaultProps} />
                   </IconButton>

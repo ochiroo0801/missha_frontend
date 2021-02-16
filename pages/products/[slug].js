@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { useContext } from "react";
 import { fromImageToUrl, API_URL } from "../../utils/urls";
 import Div from "../Styles/product_style";
 import Wrapper from "../../styles/Wrapper";
@@ -9,9 +10,12 @@ import {
   FaShoppingBag,
   FaTwitter,
 } from "react-icons/fa";
+import ShopContext from "../../context/ShopContext";
+import { Rating } from "@material-ui/lab";
 
 const Product = ({ product }) => {
-  console.log(product);
+  const { handleAddToCart } = useContext(ShopContext);
+
   return (
     <Wrapper>
       <Div>
@@ -29,11 +33,16 @@ const Product = ({ product }) => {
             <h2 className="brand">{product.brand}</h2>
             <h3 className="name">{product.name}</h3>
             <h4 className="price">{product.price} Kč</h4>
+
+            <p>Үнэлгээ</p>
+            <Rating name="simple-controlled" value={product.rating} />
+
             <h4 className="size">{product.size} ml</h4>
             <Button
               startIcon={<FaShoppingBag />}
               variant="contained"
               color="secondary"
+              onClick={() => handleAddToCart(product)}
             >
               Сагсанд нэмэх
             </Button>

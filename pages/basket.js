@@ -15,6 +15,7 @@ import Div, {
 import { fromImageToUrl } from "../utils/urls";
 import Wrapper from "../styles/Wrapper";
 import BuyButton from "../components/BuyButton/BuyButton";
+import Quantity from "../components/Quantity";
 
 function shoppingCart() {
   const {
@@ -23,19 +24,26 @@ function shoppingCart() {
     products,
     totalPrice,
     setTotalPrice,
+    QuantityChanger,
+    handleChange,
   } = useContext(ShopContext);
+  const { quantity, setQuantity } = QuantityChanger();
 
-  useEffect(() => {
-    const price = products.map((e) => e.price);
+  console.log(quantity);
 
-    if (price.length !== 0) {
-      const total = price.reduce(myFunction);
-      function myFunction(total, value) {
-        return total + value;
-      }
-      setTotalPrice(total);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (products !== []) {
+  //     const price = products[0].map((e) => e.price);
+
+  //     if (price.length !== 0) {
+  //       const total = price.reduce(myFunction);
+  //       function myFunction(total, value) {
+  //         return total + value;
+  //       }
+  //       setTotalPrice(total);
+  //     }
+  //   }
+  // }, []);
 
   return (
     <div>
@@ -75,38 +83,53 @@ function shoppingCart() {
                       <p>Сагсыг хоослох</p>
                     </Link>
                   </Button>
-                  {products?.map((e) => (
-                    <div className="cartItem" key={e.id}>
-                      <div className="product_info">
-                        <Link href={e.slug}>
-                          <div className="image">
-                            <img src={fromImageToUrl(e.image)} alt="" />
-                          </div>
-                        </Link>
+                  {products.map((e) => {
+                    console.log(e);
+                    const product = e[0];
+                    const quantity = e[1];
 
-                        <div className="content">
-                          <div className="info">
-                            <h5>{e.brand}</h5>
-                            <h4>{e.name}</h4>
-                            <p>{e.size} ml</p>
-                          </div>
-                          <div className="priceAndTools">
-                            <h4>{e.price} Kč</h4>
-                            <Button
-                              variant="contained"
-                              startIcon={<MdDeleteForever />}
-                              color="primary"
-                              size="small"
-                              className="tools"
-                              onClick={() => handleRemoveItem(e.id)}
-                            >
-                              <p>Устгах</p>
-                            </Button>
+                    return (
+                      <div className="cartItem" key={product.id}>
+                        <div className="product_info">
+                          <Link href={`/products/${product.slug}`}>
+                            <div className="image">
+                              <img src={fromImageToUrl(product.image)} alt="" />
+                            </div>
+                          </Link>
+
+                          <div className="content">
+                            <div className="info">
+                              <h5>{product.brand}</h5>
+                              <h4>{product.name}</h4>
+                              <p>{product.size} ml</p>
+                            </div>
+                            <div className="priceAndTools">
+                              <h4>{product.price} Kč</h4>
+                              <h3>{product.price * quantity}</h3>
+                              <Quantity
+                                handleChange={(e) =>
+                                  handleChange(e.target.value, setQuantity)
+                                }
+                                width={"100%"}
+                                quantity={quantity}
+                              />
+
+                              <Button
+                                variant="contained"
+                                startIcon={<MdDeleteForever />}
+                                color="primary"
+                                size="small"
+                                className="tools"
+                                onClick={() => handleRemoveItem(product.id)}
+                              >
+                                <p>Устгах</p>
+                              </Button>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
 
                   <Button startIcon={<BsBoxArrowLeft />}>Буцах</Button>
                 </Checkout_Products>

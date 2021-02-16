@@ -7,10 +7,14 @@ const Div = styled.div`
     transform: scale(1.05);
   }
 
+  .proCard {
+    padding: 10px;
+  }
+
   .column {
+    width: 100%;
     display: flex;
     flex-direction: column;
-    padding: 20px;
   }
 
   .row {
@@ -19,10 +23,6 @@ const Div = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-  }
-
-  .product_name {
-    margin-bottom: 10px;
   }
 
   .product_price {

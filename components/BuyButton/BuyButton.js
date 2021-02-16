@@ -43,9 +43,14 @@ function BuyButton({ product }) {
     <div>
       {!user && (
         <div>
-          <button onClick={redirectToLogin} className="buy">
-            Login to Buy
-          </button>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={redirectToLogin}
+            className="buy"
+          >
+            Нэвтрэх
+          </Button>
         </div>
       )}
       {user && (
@@ -56,7 +61,7 @@ function BuyButton({ product }) {
             onClick={handleBuy}
             className="buy"
           >
-            Buy
+            худалдан авах
           </Button>
         </div>
       )}
