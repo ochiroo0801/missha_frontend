@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { device } from "../../styles/device";
 
 const Div = styled.div`
   padding: 50px 0;
@@ -22,6 +23,11 @@ export const Empty = styled.div`
 export const Cart = styled.div`
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
+
+  @media ${device.laptop} {
+    flex-direction: row;
+  }
 
   h3 {
     font-size: 22px;

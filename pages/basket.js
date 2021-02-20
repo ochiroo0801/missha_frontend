@@ -1,23 +1,30 @@
-import { useContext } from "react";
 import Head from "next/head";
-import { Button, Link } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 
 import { MdDeleteForever } from "react-icons/md";
 import { BsBoxArrowLeft } from "react-icons/bs";
-
-import ShopContext from "../context/ShopContext";
 import Div, {
   Empty,
   Cart,
   Checkout_Products,
   Checkout_Method,
-} from "./Styles/shoppingCart_style";
+} from "./Styles/basket_style";
 import Wrapper from "../styles/Wrapper";
 import BuyButton from "../components/BuyButton/BuyButton";
 import Quantity from "../components/Quantity";
+import { useCart } from "../context/cart/use_cart";
 
 function Basket() {
-  const { handleRemoveCart, products, totalPrice } = useContext(ShopContext);
+  const {
+    items,
+    clearCart,
+    calculatePrice,
+    calculateSubTotalPrice,
+  } = useCart();
+
+  const handleEmptyBasket = (e) => {
+    clearCart(e);
+  };
 
   return (
     <div>
@@ -27,7 +34,7 @@ function Basket() {
       </Head>
 
       <div>
-        {products?.length === 0 ? (
+        {items?.length === 0 ? (
           <Empty>
             <img
               src="https://image.freepik.com/free-vector/purchase-ban-online-store-website-error-cancel-buying-order-placing-inability-buy-limit-budget-line-online-buyer-cartoon-character_335657-1173.jpg"
@@ -52,26 +59,26 @@ function Basket() {
                     color="secondary"
                     size="small"
                     className="tools"
+                    onClick={() => handleEmptyBasket(items)}
                   >
-                    <Link href="/shoppingCart" onClick={handleRemoveCart}>
-                      <p>Сагсыг хоослох</p>
-                    </Link>
+                    <p>Сагсыг хоослох</p>
+                    {/* <Link href="/shoppingCart">
+                    </Link> */}
                   </Button>
-                  {products.map((e) => (
+                  {items.map((e) => (
                     <Quantity key={e.id} data={e} />
                   ))}
-
-                  <Button startIcon={<BsBoxArrowLeft />}>Буцах</Button>
                 </Checkout_Products>
 
                 <Checkout_Method>
                   <h3>Захиалга</h3>
                   <div className="container">
-                    <h1>{totalPrice}</h1>
-                    <BuyButton product={products} />
+                    <h1>{calculatePrice(items)}</h1>
+                    {/* <BuyButton product={products} /> */}
                   </div>
                 </Checkout_Method>
               </Cart>
+              <Button startIcon={<BsBoxArrowLeft />}>Буцах</Button>
             </Wrapper>
           </Div>
         )}

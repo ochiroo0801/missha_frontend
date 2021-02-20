@@ -1,17 +1,25 @@
 import Link from "next/link";
-import { useContext } from "react";
+
 import Card from "@material-ui/core/Card";
+import { Button, CardActions } from "@material-ui/core";
 import CardActionArea from "@material-ui/core/CardActionArea";
+import { Rating } from "@material-ui/lab";
+import { motion } from "framer-motion";
+
 import { FaShoppingBag } from "react-icons/fa";
 
+import { useCart } from "../../context/cart/use_cart";
 import { fromImageToUrl } from "../../utils/urls";
+
 import Div from "./product_style";
-import { Button, CardActions } from "@material-ui/core";
-import ShopContext from "../../context/ShopContext";
-import { Rating } from "@material-ui/lab";
 
 function Product({ product }) {
-  const { handleAddToCart } = useContext(ShopContext);
+  // const { handleAddToCart } = useContext(ShopContext);
+  const { addItem } = useCart();
+
+  const handleAddClick = (e) => {
+    addItem(e);
+  };
 
   return (
     <Div key={product.name}>
@@ -35,14 +43,17 @@ function Product({ product }) {
             </div>
             <div className="row">
               <div className="product_price">{product.price} Kč</div>
-              <Button
-                onClick={() => handleAddToCart(product)}
-                variant="contained"
-                color="secondary"
-                startIcon={<FaShoppingBag />}
-              >
-                Сагсанд нэмэх
-              </Button>
+
+              <motion.div whileTap={{ scale: 0.95 }}>
+                <Button
+                  onClick={() => handleAddClick(product)}
+                  variant="contained"
+                  color="secondary"
+                  startIcon={<FaShoppingBag />}
+                >
+                  Сагсанд нэмэх
+                </Button>
+              </motion.div>
             </div>
           </div>
         </CardActions>

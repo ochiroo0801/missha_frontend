@@ -1,20 +1,20 @@
 import { useContext } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import AuthContext from "../../context/AuthContext";
+import { Badge, Button, IconButton } from "@material-ui/core";
 // ICONS
 import { BsFillHeartFill } from "react-icons/bs";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaUser } from "react-icons/fa";
 
-import Top, { Main, Div } from "./headerStyle";
+import { useCart } from "../../context/cart/use_cart";
+import AuthContext from "../../context/AuthContext";
 import Wrapper from "../../styles/Wrapper";
-import { Badge, Button, IconButton } from "@material-ui/core";
-import ShopContext from "../../context/ShopContext";
+import Top, { Main, Div } from "./headerStyle";
 
 function Header() {
   const { user } = useContext(AuthContext);
-  const { products } = useContext(ShopContext);
+  const { cartItemsCount } = useCart();
 
   const router = useRouter();
   const isHome = router.pathname === "/";
@@ -62,7 +62,7 @@ function Header() {
               <div className="item">
                 <Link href="/basket">
                   <IconButton className="icon_basket" aria-label="cart">
-                    <Badge badgeContent={products.length} {...defaultProps} />
+                    <Badge badgeContent={cartItemsCount} {...defaultProps} />
                   </IconButton>
                 </Link>
               </div>

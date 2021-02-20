@@ -1,42 +1,17 @@
-import { useState, useContext, useEffect } from "react";
-import {
-  Button,
-  Link,
-  FormControl,
-  InputLabel,
-  Select,
-} from "@material-ui/core";
+import { Button, Link } from "@material-ui/core";
 import { MdDeleteForever } from "react-icons/md";
 
-import ShopContext from "../context/ShopContext";
 import { fromImageToUrl } from "../utils/urls";
+import { useCart } from "../context/cart/use_cart";
 
-const count = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
-const QuantityChanger = () => {
-  const [quantity, setQuantity] = useState(1);
-
-  const handleChange = (event) => {
-    setQuantity(event);
-  };
-  return { quantity, handleChange };
-};
+import Counter from "./Counter/Counter";
 
 function Quantity({ data }) {
-  const { handleRemoveItem, handleTotalPrice } = useContext(ShopContext);
-  const { quantity, handleChange } = QuantityChanger();
+  const { removeItemFromCart } = useCart();
 
-  useEffect(() => {
-    handleTotalPrice(data.price * quantity);
-    // const price = data?.map((e) => e.price * quantity);
-    // if (price.length !== 0) {
-    //   const total = price.reduce(myFunction);
-    //   function myFunction(total, value) {
-    //     return total + value;
-    //   }
-    //   setTotalPrice(total);
-    // }
-  }, [quantity]);
+  const handleRemoveClick = (e) => {
+    removeItemFromCart(e);
+  };
 
   return (
     <div className="cartItem" key={data.id}>
@@ -55,35 +30,16 @@ function Quantity({ data }) {
           </div>
           <div className="priceAndTools">
             <h4>{data.price} Kč</h4>
-            <h3>{data.price * quantity}</h3>
-            <div style={{ width: "100%" }}>
-              <FormControl variant="outlined" style={{ width: "100%" }}>
-                <InputLabel htmlFor="outlined-age-native-simple">
-                  Тоо ширхэг
-                </InputLabel>
-                <Select
-                  native
-                  value={quantity}
-                  onChange={(e) => handleChange(e.target.value)}
-                  label="Тоо ширхэг"
-                >
-                  <option aria-label="None" value="" />
-                  {count.map((e) => (
-                    <option key={e} value={e}>
-                      {e}
-                    </option>
-                  ))}
-                </Select>
-              </FormControl>
-            </div>
-
+            ************
+            <h4>{data.price * data.quantity} Kč</h4>
+            <Counter product={data} />
             <Button
               variant="contained"
               startIcon={<MdDeleteForever />}
               color="primary"
               size="small"
               className="tools"
-              onClick={() => handleRemoveItem(data.id)}
+              onClick={() => handleRemoveClick(data)}
             >
               <p>Устгах</p>
             </Button>

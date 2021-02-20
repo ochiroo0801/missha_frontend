@@ -1,5 +1,4 @@
 import Head from "next/head";
-import { useContext } from "react";
 import { fromImageToUrl, API_URL } from "../../utils/urls";
 import Div from "../Styles/product_style";
 import Wrapper from "../../styles/Wrapper";
@@ -10,11 +9,17 @@ import {
   FaShoppingBag,
   FaTwitter,
 } from "react-icons/fa";
-import ShopContext from "../../context/ShopContext";
 import { Rating } from "@material-ui/lab";
+import { motion } from "framer-motion";
+
+import { useCart } from "../../context/cart/use_cart";
 
 const Product = ({ product }) => {
-  const { handleAddToCart } = useContext(ShopContext);
+  const { addItem } = useCart();
+
+  const handleAddToCart = (e) => {
+    addItem(e);
+  };
 
   return (
     <Wrapper>
@@ -38,14 +43,18 @@ const Product = ({ product }) => {
             <Rating name="simple-controlled" value={product.rating} />
 
             <h4 className="size">{product.size} ml</h4>
-            <Button
-              startIcon={<FaShoppingBag />}
-              variant="contained"
-              color="secondary"
-              onClick={() => handleAddToCart(product)}
-            >
-              Сагсанд нэмэх
-            </Button>
+
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button
+                startIcon={<FaShoppingBag />}
+                variant="contained"
+                color="secondary"
+                onClick={() => handleAddToCart(product)}
+              >
+                Сагсанд нэмэх
+              </Button>
+            </motion.div>
+
             <p className="details">{product.content}</p>
             <div className="share">
               <h4>Сошилоор хуваалцах</h4>
