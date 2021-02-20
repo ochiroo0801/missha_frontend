@@ -21,6 +21,16 @@ function login({ data }) {
     loginUser(email);
   };
 
+  const handleLoginSocial = async () => {
+    try {
+      const res = await fetch(
+        "https://eu-shop.herokuapp.com/auth/facebook/callback"
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <Div>
       <Head>
