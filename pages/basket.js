@@ -13,6 +13,22 @@ import Wrapper from "../styles/Wrapper";
 import BuyButton from "../components/BuyButton/BuyButton";
 import Quantity from "../components/Quantity";
 import { useCart } from "../context/cart/use_cart";
+import { motion } from "framer-motion";
+
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+    },
+  },
+};
+
+const item = {
+  hidden: { opacity: 0, y: 50 },
+  show: { opacity: 1, y: 0 },
+};
 
 function Basket() {
   const {
@@ -50,34 +66,39 @@ function Basket() {
         ) : (
           <Div>
             <Wrapper>
-              <Cart>
-                <Checkout_Products>
-                  <h3>Сагс</h3>
-                  <Button
-                    variant="contained"
-                    startIcon={<MdDeleteForever />}
-                    color="secondary"
-                    size="small"
-                    className="tools"
-                    onClick={() => handleEmptyBasket(items)}
-                  >
-                    <p>Сагсыг хоослох</p>
-                    {/* <Link href="/shoppingCart">
+              <motion.div variants={container} initial="hidden" animate="show">
+                <Cart>
+                  <Checkout_Products>
+                    <h3>Сагс</h3>
+                    <Button
+                      variant="contained"
+                      startIcon={<MdDeleteForever />}
+                      color="secondary"
+                      size="small"
+                      className="tools"
+                      onClick={() => handleEmptyBasket(items)}
+                    >
+                      <p>Сагсыг хоослох</p>
+                      {/* <Link href="/shoppingCart">
                     </Link> */}
-                  </Button>
-                  {items.map((e) => (
-                    <Quantity key={e.id} data={e} />
-                  ))}
-                </Checkout_Products>
+                    </Button>
+                    {items.map((e) => (
+                      <motion.div variants={item}>
+                        <Quantity key={e.id} data={e} />
+                      </motion.div>
+                    ))}
+                  </Checkout_Products>
 
-                <Checkout_Method>
-                  <h3>Захиалга</h3>
-                  <div className="container">
-                    <h1>{calculatePrice(items)}</h1>
-                    {/* <BuyButton product={products} /> */}
-                  </div>
-                </Checkout_Method>
-              </Cart>
+                  <Checkout_Method>
+                    <h3>Захиалга</h3>
+                    <div className="container">
+                      <h1>{calculatePrice(items)}</h1>
+                      {/* <BuyButton product={products} /> */}
+                    </div>
+                  </Checkout_Method>
+                </Cart>
+              </motion.div>
+
               <Button startIcon={<BsBoxArrowLeft />}>Буцах</Button>
             </Wrapper>
           </Div>

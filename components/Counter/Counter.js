@@ -17,14 +17,14 @@ function Counter({ product }) {
   return (
     <Div>
       <ButtonGroup color="primary" aria-label="outlined primary button group">
-        <Button>
-          <AiOutlineMinus onClick={() => handleRemoveitem(product)} />
+        <Button onClick={() => handleRemoveitem(product)}>
+          <AiOutlineMinus />
         </Button>
 
         <Button>{product.quantity}</Button>
 
-        <Button>
-          <AiOutlinePlus onClick={() => handleAdditem(product)} />
+        <Button onClick={() => handleAdditem(product)}>
+          <AiOutlinePlus />
         </Button>
       </ButtonGroup>
     </Div>
