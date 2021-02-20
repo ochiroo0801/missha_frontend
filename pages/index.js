@@ -6,7 +6,6 @@ import Product from "../components/Product/Product";
 
 export default function Home({ products, data }) {
   const { title, items, description } = data;
-
   return (
     <div>
       <Head>
@@ -33,7 +32,7 @@ export async function getStaticProps() {
   const data = await res.json();
 
   // Fetch the products
-  const product_res = await fetch(`${API_URL}/products/`);
+  const product_res = await fetch(`${API_URL}/products`);
   const products = await product_res.json();
 
   // Return the products as props

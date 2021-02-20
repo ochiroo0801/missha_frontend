@@ -23,9 +23,7 @@ const QuantityChanger = () => {
 };
 
 function Quantity({ data }) {
-  const { handleRemoveItem, setPrice, handleTotalPrice } = useContext(
-    ShopContext
-  );
+  const { handleRemoveItem, handleTotalPrice } = useContext(ShopContext);
   const { quantity, handleChange } = QuantityChanger();
 
   useEffect(() => {

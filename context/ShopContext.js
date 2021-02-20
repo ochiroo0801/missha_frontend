@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
 
 const ShopContext = createContext(ShopProvider);
 
@@ -9,11 +9,11 @@ export function ShopProvider(props) {
   const [rating, setRating] = useState(4);
 
   const handleTotalPrice = (event) => {
-    const price = [];
-    price.push(event);
+    setTotalPrice((item) => item + event);
 
-    console.log(price.length);
-    // const totalReduce = event.reduce(myFunction);
+    // const price = event.map((e) => e);
+
+    // const totalReduce = price.reduce(myFunction);
     // function myFunction(total, value) {
     //   return total + value;
     // }

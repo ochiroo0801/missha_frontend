@@ -30,7 +30,7 @@ function Header() {
   };
 
   return (
-    <Div style={{ zIndex: "100" }}>
+    <Div>
       <Top>
         <Wrapper>
           <div className="container">

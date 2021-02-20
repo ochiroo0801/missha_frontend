@@ -16,7 +16,7 @@ import Wrapper from "../styles/Wrapper";
 import BuyButton from "../components/BuyButton/BuyButton";
 import Quantity from "../components/Quantity";
 
-function shoppingCart() {
+function Basket() {
   const { handleRemoveCart, products, totalPrice } = useContext(ShopContext);
 
   return (
@@ -58,7 +58,7 @@ function shoppingCart() {
                     </Link>
                   </Button>
                   {products.map((e) => (
-                    <Quantity data={e} />
+                    <Quantity key={e.id} data={e} />
                   ))}
 
                   <Button startIcon={<BsBoxArrowLeft />}>Буцах</Button>
@@ -80,4 +80,4 @@ function shoppingCart() {
   );
 }
 
-export default shoppingCart;
+export default Basket;
