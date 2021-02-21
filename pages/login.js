@@ -12,7 +12,9 @@ import { API_URL, fromImageToUrl } from "../utils/urls";
 import Wrapper from "../styles/Wrapper";
 
 function login({ data }) {
-  const { loginUser, handleLogin, user, loginSocial } = useContext(AuthContext);
+  const { loginUser, handleLogin, user, handleLoginSocial } = useContext(
+    AuthContext
+  );
   const [email, setEmail] = useState("");
   const { title, label, placeholder, text, background, button } = data;
   const bg = fromImageToUrl(background[0]);
@@ -20,16 +22,6 @@ function login({ data }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     loginUser(email);
-  };
-
-  const handleLoginSocial = async () => {
-    try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_GOOGLE_AUTH}`);
-
-      console.log(res);
-    } catch (err) {
-      console.log(err);
-    }
   };
 
   return (
@@ -46,14 +38,15 @@ function login({ data }) {
           <div className="formSection">
             <h2>{title}</h2>
             <div className="buttons">
-              <Button
-                variant="contained"
-                startIcon={<FaFacebookF />}
-                color="primary"
-                onClick={handleLoginSocial}
-              >
-                Facebook
-              </Button>
+              <Link href={process.env.NEXT_PUBLIC_FACEBOOK_AUTH}>
+                <Button
+                  variant="contained"
+                  startIcon={<FaFacebookF />}
+                  color="primary"
+                >
+                  Facebook
+                </Button>
+              </Link>
               <Link href={process.env.NEXT_PUBLIC_GOOGLE_AUTH}>
                 <Button
                   variant="contained"

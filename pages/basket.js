@@ -31,12 +31,7 @@ const item = {
 };
 
 function Basket() {
-  const {
-    items,
-    clearCart,
-    calculatePrice,
-    calculateSubTotalPrice,
-  } = useCart();
+  const { items, clearCart, calculatePrice } = useCart();
 
   const handleEmptyBasket = (e) => {
     clearCart(e);
@@ -79,8 +74,6 @@ function Basket() {
                       onClick={() => handleEmptyBasket(items)}
                     >
                       <p>Сагсыг хоослох</p>
-                      {/* <Link href="/shoppingCart">
-                    </Link> */}
                     </Button>
                     {items.map((e) => (
                       <motion.div variants={item}>
@@ -93,7 +86,7 @@ function Basket() {
                     <h3>Захиалга</h3>
                     <div className="container">
                       <h1>{calculatePrice(items)}</h1>
-                      {/* <BuyButton product={products} /> */}
+                      <BuyButton product={items} />
                     </div>
                   </Checkout_Method>
                 </Cart>
