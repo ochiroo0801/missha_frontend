@@ -8,7 +8,6 @@
     "start": "next start"
   },
   "dependencies": {
-    "@magic-ext/oauth": "^0.7.0",
     "@material-ui/core": "^4.11.3",
     "@material-ui/lab": "^4.0.0-alpha.57",
     "@stripe/stripe-js": "^1.11.0",

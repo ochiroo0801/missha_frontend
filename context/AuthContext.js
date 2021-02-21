@@ -1,9 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
-import { Magic } from "magic-sdk";
-import { OAuthExtension } from "@magic-ext/oauth";
-
 let magic;
 
 const AuthContext = createContext();
@@ -70,17 +67,17 @@ export function AuthProvider(props) {
     } catch (err) {}
   };
 
-  useEffect(() => {
-    !magic &&
-      setMagic(
-        new Magic(process.env.NEXT_PUBLIC_MAGIC_PUBLISHABLE_KEY, {
-          extensions: [new OAuthExtension()],
-        })
-      );
-    magic?.preload();
+  // useEffect(() => {
+  //   !magic &&
+  //     setMagic(
+  //       new Magic(process.env.NEXT_PUBLIC_MAGIC_PUBLISHABLE_KEY, {
+  //         extensions: [new OAuthExtension()],
+  //       })
+  //     );
+  //   magic?.preload();
 
-    checkUserLoggedIn();
-  }, [magic]);
+  //   checkUserLoggedIn();
+  // }, [magic]);
 
   return (
     <AuthContext.Provider

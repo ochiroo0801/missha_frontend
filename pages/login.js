@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
 import Head from "next/head";
+import Link from "next/link";
 import TextField from "@material-ui/core/TextField";
 import { Button } from "@material-ui/core";
 import { FaFacebookF, FaGooglePlusG } from "react-icons/fa";
@@ -23,9 +24,9 @@ function login({ data }) {
 
   const handleLoginSocial = async () => {
     try {
-      const res = await fetch(
-        "https://eu-shop.herokuapp.com/auth/facebook/callback"
-      );
+      const res = await fetch(`${process.env.NEXT_PUBLIC_GOOGLE_AUTH}`);
+
+      console.log(res);
     } catch (err) {
       console.log(err);
     }
@@ -49,18 +50,19 @@ function login({ data }) {
                 variant="contained"
                 startIcon={<FaFacebookF />}
                 color="primary"
-                onClick={() => loginSocial("facebook")}
+                onClick={handleLoginSocial}
               >
                 Facebook
               </Button>
-              <Button
-                variant="contained"
-                startIcon={<FaGooglePlusG />}
-                color="secondary"
-                onClick={() => loginSocial("google")}
-              >
-                Google
-              </Button>
+              <Link href={process.env.NEXT_PUBLIC_GOOGLE_AUTH}>
+                <Button
+                  variant="contained"
+                  startIcon={<FaGooglePlusG />}
+                  color="secondary"
+                >
+                  Google
+                </Button>
+              </Link>
             </div>
             <form onSubmit={handleSubmit} noValidate autoComplete="off">
               <TextField
