@@ -1,6 +1,6 @@
 import Head from "next/head";
-import Slider from "../components/Slider/Slider";
 
+import Slider from "../components/Slider/Slider";
 import { API_URL } from "../utils/urls";
 import Product from "../components/Product/Product";
 

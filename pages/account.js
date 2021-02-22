@@ -100,7 +100,7 @@ function Account() {
             <img src={user.photoURL} />
           </div>
           <div className="name">
-            <p>{user.displayName}</p>
+            <p>{user.username}</p>
           </div>
           <div className="email">
             <p>{user.email}</p>

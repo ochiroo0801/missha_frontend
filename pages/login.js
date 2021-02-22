@@ -12,9 +12,7 @@ import { API_URL, fromImageToUrl } from "../utils/urls";
 import Wrapper from "../styles/Wrapper";
 
 function login({ data }) {
-  const { loginUser, handleLogin, user, handleLoginSocial } = useContext(
-    AuthContext
-  );
+  const { loginUser, user, handleSocialLogin } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const { title, label, placeholder, text, background, button } = data;
   const bg = fromImageToUrl(background[0]);
@@ -38,24 +36,22 @@ function login({ data }) {
           <div className="formSection">
             <h2>{title}</h2>
             <div className="buttons">
-              <Link href={process.env.NEXT_PUBLIC_FACEBOOK_AUTH}>
-                <Button
-                  variant="contained"
-                  startIcon={<FaFacebookF />}
-                  color="primary"
-                >
-                  Facebook
-                </Button>
-              </Link>
-              <Link href={process.env.NEXT_PUBLIC_GOOGLE_AUTH}>
-                <Button
-                  variant="contained"
-                  startIcon={<FaGooglePlusG />}
-                  color="secondary"
-                >
-                  Google
-                </Button>
-              </Link>
+              <Button
+                variant="contained"
+                startIcon={<FaFacebookF />}
+                color="primary"
+              >
+                Facebook
+              </Button>
+
+              <Button
+                variant="contained"
+                startIcon={<FaGooglePlusG />}
+                color="secondary"
+                onClick={() => handleSocialLogin("google")}
+              >
+                Google
+              </Button>
             </div>
             <form onSubmit={handleSubmit} noValidate autoComplete="off">
               <TextField

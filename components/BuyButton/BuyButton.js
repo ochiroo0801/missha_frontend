@@ -10,7 +10,7 @@ import { Button } from "@material-ui/core";
 const stripePromise = loadStripe(STRIPE_PK);
 
 function BuyButton({ product }) {
-  const { user, getToken } = useContext(AuthContext);
+  const { user, token } = useContext(AuthContext);
   const router = useRouter();
 
   const redirectToLogin = () => {
@@ -19,9 +19,6 @@ function BuyButton({ product }) {
 
   const handleBuy = async () => {
     const stripe = await stripePromise;
-    const token = await getToken();
-
-    console.log(product);
 
     const res = await fetch(`${API_URL}/orders`, {
       method: "POST",

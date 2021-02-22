@@ -76,7 +76,7 @@ function Basket() {
                       <p>Сагсыг хоослох</p>
                     </Button>
                     {items.map((e) => (
-                      <motion.div variants={item}>
+                      <motion.div variants={item} key={e.id}>
                         <Quantity key={e.id} data={e} />
                       </motion.div>
                     ))}

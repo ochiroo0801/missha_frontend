@@ -10,14 +10,13 @@ const useOrder = (session_id) => {
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(null);
 
-  const { getToken, user } = useContext(AuthContext);
+  const { token, user } = useContext(AuthContext);
 
   useEffect(() => {
     if (user) {
       const fetchOrder = async () => {
         setLoading(true);
         try {
-          const token = await getToken();
           const res = await fetch(`${API_URL}/orders/confirm`, {
             method: "POST",
             body: JSON.stringify({ checkout_session: session_id }),
@@ -47,8 +46,6 @@ function Success() {
   const router = useRouter();
   const { session_id } = router.query;
   const { order, loading } = useOrder(session_id);
-
-  console.log(order);
 
   return (
     <div>

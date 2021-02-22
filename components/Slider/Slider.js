@@ -5,7 +5,6 @@ import SwiperCore, { Autoplay, Navigation } from "swiper";
 SwiperCore.use([Autoplay, Navigation]);
 
 function Slider({ data, autoplay }) {
-  console.log(data);
   return (
     <div>
       <Swiper loop={true} slidesPerView={1} autoplay={autoplay}>
